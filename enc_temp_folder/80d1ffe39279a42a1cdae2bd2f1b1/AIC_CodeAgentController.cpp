@@ -45,7 +45,7 @@ AAIC_CodeAgentController::AAIC_CodeAgentController()
 
     if (AIPerceptionComp)
     {
-        AIPerceptionComp->OnTargetPerceptionUpdated.AddDynamic(this, &AAIC_CodeAgentController::OnHandlePerception);
+        AIPerceptionComp->OnTargetPerceptionUpdated.AddDynamic(this, &AAIC_CodeAgentController::HandlePerception);
         UE_LOG(LogTemp, Warning, TEXT("HandlePerception successfully bound to Perception Component!"));
     }
     else
@@ -87,7 +87,7 @@ void AAIC_CodeAgentController::OnPossess(APawn* InPawn)
     }
 }
 
-void AAIC_CodeAgentController::OnHandlePerception(AActor* Actor, FAIStimulus Stimulus)
+void AAIC_CodeAgentController::HandlePerception(AActor* Actor, FAIStimulus Stimulus)
 {
     if (!Actor || !GetBlackboardComponent()) {
         return;

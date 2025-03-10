@@ -42,5 +42,5 @@ protected:
 
 private:
     UFUNCTION()
-    void OnHandlePerception(AActor* Actor, FAIStimulus Stimulus);
+    void HandlePerception(AActor* Actor, FAIStimulus Stimulus);
 };
