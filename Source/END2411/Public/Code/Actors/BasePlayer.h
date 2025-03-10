@@ -39,6 +39,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Default")
 	class APlayerController* PlayerController;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Default")
+	class UAIPerceptionStimuliSourceComponent* StimuliSource;
+
 public:
 	
 	ABasePlayer(); 

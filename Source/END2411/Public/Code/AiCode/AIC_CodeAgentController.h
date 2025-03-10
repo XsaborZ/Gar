@@ -25,6 +25,8 @@ class END2411_API AAIC_CodeAgentController : public AAIController
 public:
 	AAIC_CodeAgentController();
 
+    virtual void BeginPlay() override; 
+
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Default")
     class UBehaviorTree* BTAsset;
 
@@ -38,6 +40,7 @@ protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
     UAISenseConfig_Sight* SightConfig;
 
+private:
     UFUNCTION()
-    void OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus); 
+    void HandlePerception(AActor* Actor, FAIStimulus Stimulus);
 };

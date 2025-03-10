@@ -9,7 +9,11 @@
 
 #include "Both/PlayerHUD.h"
 
+#include "Perception/AIPerceptionStimuliSourceComponent.h"
+#include <Perception/AISense_Sight.h>
+
 #include "../END2411.h"
+
 
 ABasePlayer::ABasePlayer()
 {
@@ -41,7 +45,14 @@ ABasePlayer::ABasePlayer()
 
 #pragma endregion
 
+	StimuliSource = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>(TEXT("StimuliSource")); 
 
+	if (StimuliSource)
+	{
+		StimuliSource->RegisterForSense(TSubclassOf<UAISense_Sight>()); 
+		StimuliSource->RegisterWithPerceptionSystem();
+		UE_LOG(LogTemp, Warning, TEXT("Player registered as AI Perception Stimulus Source!"));
+	}
 }
 
 void ABasePlayer::BeginPlay() {
@@ -63,6 +74,12 @@ void ABasePlayer::BeginPlay() {
 	else {
 		UE_LOG(Game, Error, TEXT("We need a valid PlayerController and WidgetClass"));
 		Destroy();
+	}
+
+	if (StimuliSource) 
+	{
+		StimuliSource->RegisterWithPerceptionSystem(); 
+		UE_LOG(LogTemp, Warning, TEXT("Player StimuliSource Registered on BeginPlay!")); 
 	}
 
 }

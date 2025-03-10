@@ -6,10 +6,21 @@
 #include "BehaviorTree/BehaviorTree.h"
 #include "AI/NavigationSystemBase.h"
 #include "GameFramework/Character.h"
+#include "Perception/AIPerceptionStimuliSourceComponent.h"
 
 AAIC_CodeAgentController::AAIC_CodeAgentController()
 {
+    UE_LOG(LogTemp, Warning, TEXT("AI Controller Constructor Called!"));
     AIPerceptionComp = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("AIPerceptionComp"));
+    if (AIPerceptionComp)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("AIPerceptionComp Successfully Created!"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("AIPerceptionComp is NULL!"));
+    }
+
     SightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("SightConfig"));
     if (SightConfig)
     {
@@ -25,9 +36,34 @@ AAIC_CodeAgentController::AAIC_CodeAgentController()
 
         AIPerceptionComp->ConfigureSense(*SightConfig);
         AIPerceptionComp->SetDominantSense(SightConfig->GetSenseImplementation());
+        UE_LOG(LogTemp, Warning, TEXT("SightConfig Successfully Configured!"));
     }
-    AIPerceptionComp->OnTargetPerceptionUpdated.AddDynamic(this, &AAIC_CodeAgentController::OnTargetPerceptionUpdated); 
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("SightConfig is NULL!"));
+    }
+
+    if (AIPerceptionComp)
+    {
+        AIPerceptionComp->OnTargetPerceptionUpdated.AddDynamic(this, &AAIC_CodeAgentController::HandlePerception);
+        UE_LOG(LogTemp, Warning, TEXT("HandlePerception successfully bound to Perception Component!"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("AIPerceptionComp is NULL!"));
+    }
 }
+void AAIC_CodeAgentController::BeginPlay()
+{
+    Super::BeginPlay();
+
+    if (AIPerceptionComp)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("AIPerception Component Activated!"));
+        AIPerceptionComp->Activate();
+    }
+}
+
 
 void AAIC_CodeAgentController::OnPossess(APawn* InPawn)
 {
@@ -51,19 +87,20 @@ void AAIC_CodeAgentController::OnPossess(APawn* InPawn)
     }
 }
 
-void AAIC_CodeAgentController::OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
+void AAIC_CodeAgentController::HandlePerception(AActor* Actor, FAIStimulus Stimulus)
 {
-    if (Actor)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("AI Perceived: %s"), *Actor->GetName());
+    if (!Actor || !GetBlackboardComponent()) {
+        return;
+    }
 
-        if (Stimulus.WasSuccessfullySensed())
-        {
-            UE_LOG(LogTemp, Warning, TEXT("AI sees the target!"));
-        }
-        else
-        {
-            UE_LOG(LogTemp, Warning, TEXT("AI lost sight of the target!"));
-        }
+    FName PlayerName = (FName)Actor->GetName();
+
+    if (Stimulus.WasSuccessfullySensed())
+    {
+        GetBlackboardComponent()->SetValueAsObject(PlayerName, Actor);
+    }
+    else // not successful
+    {
+        GetBlackboardComponent()->ClearValue(PlayerName);
     }
 }
