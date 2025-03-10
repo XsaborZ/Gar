@@ -7,7 +7,7 @@
 AAgent::AAgent()
 {
 	PrimaryActorTick.bCanEverTick = true;
-	PrimaryActorTick.bStartWithTickEnabled = true;
+	PrimaryActorTick.bStartWithTickEnabled = false;
 }
 
 void AAgent::Tick(float DeltaTime)
