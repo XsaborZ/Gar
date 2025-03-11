@@ -51,6 +51,7 @@ ABasePlayer::ABasePlayer()
 	{
 		StimuliSource->RegisterForSense(TSubclassOf<UAISense_Sight>()); 
 		StimuliSource->RegisterWithPerceptionSystem();
+		StimuliSource->Activate(); 
 		UE_LOG(LogTemp, Warning, TEXT("Player registered as AI Perception Stimulus Source!"));
 	}
 }

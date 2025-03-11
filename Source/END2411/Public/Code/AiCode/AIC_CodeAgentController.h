@@ -18,7 +18,7 @@
  * 
  */
 UCLASS()
-class END2411_API AAIC_CodeAgentController : public AAIController
+class END2411_API AAIC_CodeAgentController : public AAIController 
 {
 	GENERATED_BODY() 
 
@@ -31,16 +31,17 @@ public:
     class UBehaviorTree* BTAsset;
 
     
+    
 protected:
     virtual void OnPossess(APawn* InPawn) override;  
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
-    UAIPerceptionComponent* AIPerceptionComp;
+    UAIPerceptionComponent* AIPerception;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
     UAISenseConfig_Sight* SightConfig;
 
 private:
     UFUNCTION()
-    void OnHandlePerception(AActor* Actor, FAIStimulus Stimulus);
+    void HandlePerception(AActor* Actor, FAIStimulus Stimulus); 
 };

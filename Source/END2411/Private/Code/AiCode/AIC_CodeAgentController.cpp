@@ -11,8 +11,8 @@
 AAIC_CodeAgentController::AAIC_CodeAgentController()
 {
     UE_LOG(LogTemp, Warning, TEXT("AI Controller Constructor Called!"));
-    AIPerceptionComp = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("AIPerceptionComp"));
-    if (AIPerceptionComp)
+    AIPerception = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("AIPerception"));
+    if (AIPerception)
     {
         UE_LOG(LogTemp, Warning, TEXT("AIPerceptionComp Successfully Created!"));
     }
@@ -34,8 +34,8 @@ AAIC_CodeAgentController::AAIC_CodeAgentController()
         SightConfig->DetectionByAffiliation.bDetectNeutrals = true;
         SightConfig->DetectionByAffiliation.bDetectFriendlies = false;
 
-        AIPerceptionComp->ConfigureSense(*SightConfig);
-        AIPerceptionComp->SetDominantSense(SightConfig->GetSenseImplementation());
+        AIPerception->ConfigureSense(*SightConfig);
+        AIPerception->SetDominantSense(SightConfig->GetSenseImplementation());
         UE_LOG(LogTemp, Warning, TEXT("SightConfig Successfully Configured!"));
     }
     else
@@ -43,10 +43,10 @@ AAIC_CodeAgentController::AAIC_CodeAgentController()
         UE_LOG(LogTemp, Error, TEXT("SightConfig is NULL!"));
     }
 
-    if (AIPerceptionComp)
+    if (AIPerception)
     {
-        AIPerceptionComp->OnTargetPerceptionUpdated.AddDynamic(this, &AAIC_CodeAgentController::OnHandlePerception);
-        UE_LOG(LogTemp, Warning, TEXT("HandlePerception successfully bound to Perception Component!"));
+        //AIPerception->OnTargetPerceptionUpdated.AddDynamic(this, &AAIC_CodeAgentController::OnHandlePerception);
+        //UE_LOG(LogTemp, Warning, TEXT("HandlePerception successfully bound to Perception Component!"));
     }
     else
     {
@@ -57,11 +57,12 @@ void AAIC_CodeAgentController::BeginPlay()
 {
     Super::BeginPlay();
 
-    if (AIPerceptionComp)
+    if (AIPerception)
     {
         UE_LOG(LogTemp, Warning, TEXT("AIPerception Component Activated!"));
-        AIPerceptionComp->Activate();
+        AIPerception->Activate();
     }
+    AIPerception->OnTargetPerceptionUpdated.AddDynamic(this, &AAIC_CodeAgentController::HandlePerception);
 }
 
 
@@ -87,20 +88,21 @@ void AAIC_CodeAgentController::OnPossess(APawn* InPawn)
     }
 }
 
-void AAIC_CodeAgentController::OnHandlePerception(AActor* Actor, FAIStimulus Stimulus)
+void AAIC_CodeAgentController::HandlePerception(AActor* Actor, FAIStimulus Stimulus)
 {
     if (!Actor || !GetBlackboardComponent()) {
         return;
     }
 
-    FName PlayerName = (FName)Actor->GetName();
+    FName PlayerName = Actor->GetFName();
 
     if (Stimulus.WasSuccessfullySensed())
     {
-        GetBlackboardComponent()->SetValueAsObject(PlayerName, Actor);
+        GetBlackboardComponent()->SetValueAsObject(FName("Player"), Actor); // hard coded key name cause was struggling to get this to work
     }
     else // not successful
     {
-        GetBlackboardComponent()->ClearValue(PlayerName);
+        GetBlackboardComponent()->ClearValue(FName("Player"));
     }
 }
+
