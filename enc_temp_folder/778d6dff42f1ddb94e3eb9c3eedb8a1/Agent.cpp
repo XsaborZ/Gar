@@ -51,6 +51,5 @@ void AAgent::HandleActionFinished()
 
 	// Send AI Message "ActionFinished"
 	FAIMessage::Send(this, FAIMessage(FName("ActionFinished"), this, true));
-	UE_LOG(LogTemp, Warning, TEXT("Sent ai message"));
 	
 }

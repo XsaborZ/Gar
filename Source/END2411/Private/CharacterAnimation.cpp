@@ -2,7 +2,7 @@
 
 
 #include "CharacterAnimation.h"
-#include <KismetAnimationLibrary.h>
+//#include <KismetAnimationLibrary.h>
 
 
 
@@ -25,7 +25,7 @@ void UCharacterAnimation::NativeUpdateAnimation(float DeltaSeconds)
 		// is valid
 		//FVector Vel = Pawn->GetVelocity();
 		Velocity = Pawn->GetVelocity().Size();
-		Direction = UKismetAnimationLibrary::CalculateDirection(Pawn->GetVelocity(), Pawn->GetActorRotation());
+		Direction = CalculateDirection(Pawn->GetVelocity(), Pawn->GetActorRotation()); 
 	}
 	else {
 		// Not valid

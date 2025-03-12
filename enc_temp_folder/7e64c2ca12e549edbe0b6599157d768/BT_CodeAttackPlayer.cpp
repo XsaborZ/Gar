@@ -23,7 +23,7 @@ EBTNodeResult::Type UBT_CodeAttackPlayer::ExecuteTask(UBehaviorTreeComponent& Ow
 	if (EnemyInterface)
 	{
 		EnemyInterface->Execute_PerformAttack(ControlledPawn);
-		OwnerComp.RegisterMessageObserver(this, (FName)"ActionFinished"); 
+		OwnerComp.RegisterMessageObserver(this, (FName)"ActionStopped"); 
 	}
 	return EBTNodeResult::InProgress;
 }

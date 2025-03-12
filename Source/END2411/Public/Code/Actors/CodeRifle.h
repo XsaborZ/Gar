@@ -7,6 +7,7 @@
 #include "CodeRifle.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttackDelegate, AActor*, Weapon); 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnActionStoppedDelegate); 
 
 UCLASS()
 class END2411_API ACodeRifle : public AActor
@@ -47,11 +48,17 @@ public:
 	void Attack();
 	virtual void Attack_Implementation(); // override in c++
 
+	UFUNCTION(BlueprintCallable)
+	void ActionStopped();
+
 	FVector GetSource() const;
 
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")
 	FOnAttackDelegate OnAttack; 
 	
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default") 
+	FOnActionStoppedDelegate OnActionStopped;
+
 	UFUNCTION(BlueprintCallable)
 	void OwnerDied();
 
@@ -65,7 +72,6 @@ private:
 	UFUNCTION(BlueprintCallable)
 	bool CanShoot() const;
 
-	UFUNCTION(BlueprintCallable)
-	void ActionStopped();
+	
 
 };

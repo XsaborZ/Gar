@@ -4,22 +4,28 @@
 
 #include "CoreMinimal.h"
 #include "Code/Actors/BaseCharacter.h"
+#include "Utility/BI_EnemyInterface.h"
 #include "Agent.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class END2411_API AAgent : public ABaseCharacter
+class END2411_API AAgent : public ABaseCharacter, public IBI_EnemyInterface
 {
 	GENERATED_BODY()
 
 public:
 	AAgent();
+	virtual void BeginPlay() override;
 	void Tick(float DeltaTime) override;
 	void PostRegisterAllComponents() override;
 
+	virtual void PerformAttack_Implementation() override;
+
 private:
 	void InputAction();
-	
+
+	UFUNCTION()
+	void HandleActionFinished(); 
 };

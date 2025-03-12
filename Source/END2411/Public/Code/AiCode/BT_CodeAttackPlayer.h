@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTTaskNode.h"
+#include "Utility/BI_EnemyInterface.h"
 #include "BT_CodeAttackPlayer.generated.h"
 
 /**
@@ -13,5 +14,9 @@ UCLASS()
 class END2411_API UBT_CodeAttackPlayer : public UBTTaskNode
 {
 	GENERATED_BODY()
-	
+
+protected:
+	// This function is called when the task starts executing
+	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
+
 };
