@@ -28,7 +28,4 @@ private:
 
 	UFUNCTION()
 	void HandleActionFinished(); 
-
-	void UpdateBlackboardHealth(float Ratio);  
-	virtual void HandleHurt(float Ratio) override;
 };

@@ -93,6 +93,6 @@ void ACodeRifle::ActionStopped()
 {
 	ActionHapenning = false;
 	OnActionStopped.Broadcast();
-	UE_LOG(LogTemp, Warning, TEXT("Brodcasted"));
+	//UE_LOG(LogTemp, Warning, TEXT("Brodcasted"));
 }
 

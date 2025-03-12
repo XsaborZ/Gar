@@ -23,6 +23,7 @@ void AAgent::BeginPlay()
 	Super::BeginPlay();
 
 	Rifle->OnActionStopped.AddDynamic(this, &AAgent::HandleActionFinished);
+	UpdateBlackboardHealth(1.0f);
 }
 
 void AAgent::PostRegisterAllComponents()
@@ -30,6 +31,7 @@ void AAgent::PostRegisterAllComponents()
 	Super::PostRegisterAllComponents();
 
 	GetMesh()->SetVectorParameterValueOnMaterials("Tint", FVector{ 1.0f, 0.612817f, 0.0f });
+	
 }
 
 void AAgent::InputAction()
@@ -51,6 +53,32 @@ void AAgent::HandleActionFinished()
 
 	// Send AI Message "ActionFinished"
 	FAIMessage::Send(this, FAIMessage(FName("ActionFinished"), this, true));
-	UE_LOG(LogTemp, Warning, TEXT("Sent ai message"));
+	//UE_LOG(LogTemp, Warning, TEXT("Sent ai message"));
 	
+}
+
+void AAgent::UpdateBlackboardHealth(float Ratio)
+{
+	AAIController* aiController;
+	APawn* AsPawn = Cast<APawn>(GetController());
+	if (AsPawn != nullptr)
+	{
+		aiController = Cast<AAIController>(AsPawn->GetController());
+	}
+	else {
+		aiController = Cast<AAIController>(GetController());
+	}
+	if (aiController && aiController->GetBlackboardComponent()) 
+	{
+		// Get the Blackboard component from the AI Controller
+		UBlackboardComponent* Blackboard = aiController->GetBlackboardComponent(); 
+
+		// Set the value of the HealthRatio key on the Blackboard
+		Blackboard->SetValueAsFloat(TEXT("HealthRatio"), Ratio); 
+	}
+}
+
+void AAgent::HandleHurt(float Ratio)
+{
+	UpdateBlackboardHealth(Ratio);
 }
