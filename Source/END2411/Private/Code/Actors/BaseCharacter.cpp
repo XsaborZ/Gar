@@ -64,6 +64,7 @@ void ABaseCharacter::BeginPlay()
 	Rifle->OnAttack.AddDynamic(this, &ABaseCharacter::OnRifleAttack);
 	HealthComponent->OnHurt.AddDynamic(this, &ABaseCharacter::HandleHurt);
 	HealthComponent->OnDead.AddDynamic(this, &ABaseCharacter::HandleDeadStart);
+
 }
 
 // Called every frame

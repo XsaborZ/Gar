@@ -37,6 +37,18 @@ void ACodeRifle::BeginPlay()
 		Destroy();
 	}
 
+	// call reload to set max ammo
+	ReloadAmmo();
+
+}
+
+void ACodeRifle::UseAmmo()
+{
+	currentAmmo--;
+	currentAmmo = FMath::Max(currentAmmo, 0);
+	// call On Ammo Changed
+		// set current and max ammo
+	//OnAmmoChanged.Broadcast(this, currentAmmo, maxAmmo);
 }
 
 // Called every frame
@@ -48,7 +60,7 @@ void ACodeRifle::Tick(float DeltaTime)
 
 void ACodeRifle::Attack_Implementation()
 {
-	if (CanShoot() && Alive) {
+	if (CanShoot() && Alive && currentAmmo > 0) {
 		FActorSpawnParameters SpawnParams;
 		FVector SpawnLocation = SkeletalMesh->GetSocketLocation("MuzzleFlashSocket");
 		FRotator BaseAimRotation = ParentPawn->GetBaseAimRotation();
@@ -64,6 +76,7 @@ void ACodeRifle::Attack_Implementation()
 		GetWorld()->GetTimerManager().SetTimer(ActionTimerHandle, this, &ACodeRifle::ActionStopped, 2.0f); // time between shots
 		// Broadcast the OnAttack event
 		OnAttack.Broadcast(this);
+		UseAmmo();
 	}
 	else {
 		//UE_LOG(Game, Warning, TEXT("Can't shoot"));
@@ -82,6 +95,22 @@ FVector ACodeRifle::GetSource() const
 void ACodeRifle::OwnerDied()
 {
 	Alive = false;
+}
+
+void ACodeRifle::ReloadAmmo()
+{
+	// Set Current Ammo with Max Ammo
+	currentAmmo = maxAmmo; 
+	// Call On Ammo Changed
+}
+
+void ACodeRifle::RequestReload()
+{
+	if (!ActionHapenning) {
+		ActionHapenning = true;
+		ReloadAmmo(); 
+		// comment out ReloadAmmo() once Call On Reload Start is created
+	}
 }
 
 bool ACodeRifle::CanShoot() const

@@ -8,6 +8,8 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttackDelegate, AActor*, Weapon); 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnActionStoppedDelegate); 
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAmmoChangedDelegate, float, Current, float, Max);
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnReloadStartSignature); 
 
 UCLASS()
 class END2411_API ACodeRifle : public AActor
@@ -38,10 +40,17 @@ protected:
 	float ResetTime;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Default")
 	bool Alive;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
+	float maxAmmo;
+
+	UFUNCTION(BlueprintCallable)
+	void UseAmmo();
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	
 
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
@@ -59,10 +68,23 @@ public:
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default") 
 	FOnActionStoppedDelegate OnActionStopped;
 
+	//UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")  
+	//FOnReloadStartDelegate OnReloadStart;
+
+	//UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")
+	//FOnAmmoChangedDelegate OnAmmoChanged;  
+
 	UFUNCTION(BlueprintCallable)
 	void OwnerDied();
+	UFUNCTION(BlueprintCallable)
+	void ReloadAmmo();
+	UFUNCTION(BlueprintCallable)
+	void RequestReload(); 
 
 private:
+
+	float currentAmmo;
+
 
 	UPROPERTY(EditAnywhere, Category = "Default")
 	bool ActionHapenning;
