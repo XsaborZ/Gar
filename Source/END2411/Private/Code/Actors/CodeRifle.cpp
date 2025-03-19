@@ -42,14 +42,7 @@ void ACodeRifle::BeginPlay()
 
 }
 
-void ACodeRifle::UseAmmo()
-{
-	currentAmmo--;
-	currentAmmo = FMath::Max(currentAmmo, 0);
-	// call On Ammo Changed
-		// set current and max ammo
-	//OnAmmoChanged.Broadcast(this, currentAmmo, maxAmmo);
-}
+
 
 // Called every frame
 void ACodeRifle::Tick(float DeltaTime)
@@ -66,8 +59,6 @@ void ACodeRifle::Attack_Implementation()
 		FRotator BaseAimRotation = ParentPawn->GetBaseAimRotation();
 		SpawnParams.Instigator = ParentPawn;
 		SpawnParams.Owner = ParentPawn->GetController();
-
-		
 	
 		GetWorld()->SpawnActor<AActor>(ProjectileClass, GetSource(), BaseAimRotation, SpawnParams);
 		
@@ -80,6 +71,7 @@ void ACodeRifle::Attack_Implementation()
 	}
 	else {
 		//UE_LOG(Game, Warning, TEXT("Can't shoot"));
+		// promt for reload
 	}
 }
 
@@ -102,6 +94,15 @@ void ACodeRifle::ReloadAmmo()
 	// Set Current Ammo with Max Ammo
 	currentAmmo = maxAmmo; 
 	// Call On Ammo Changed
+	OnAmmoChanged.Broadcast(currentAmmo,maxAmmo);
+}
+
+void ACodeRifle::UseAmmo()
+{
+	currentAmmo--;
+	currentAmmo = FMath::Max(currentAmmo, 0); // does not go below 0
+
+	OnAmmoChanged.Broadcast(currentAmmo, maxAmmo);
 }
 
 void ACodeRifle::RequestReload()
@@ -109,7 +110,6 @@ void ACodeRifle::RequestReload()
 	if (!ActionHapenning) {
 		ActionHapenning = true;
 		ReloadAmmo(); 
-		// comment out ReloadAmmo() once Call On Reload Start is created
 	}
 }
 

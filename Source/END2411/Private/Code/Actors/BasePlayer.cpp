@@ -62,15 +62,18 @@ void ABasePlayer::BeginPlay() {
 	PlayerController = Cast<APlayerController>(GetController());
 
 	if (PlayerController && WidgetClass) {
-		PlayerHUDWidget = CreateWidget<UUserWidget>(PlayerController, WidgetClass);
+		PlayerHUDWidget = Cast<UPlayerHud>(CreateWidget<UUserWidget>(PlayerController, WidgetClass));
 		if (PlayerHUDWidget) {
 			PlayerHUDWidget->AddToViewport();
 			UE_LOG(Game, Log, TEXT("Player HUD Widget created and added to viewport"));
+			
 		}
 		else {
 			UE_LOG(Game, Error, TEXT("Failed to create Player HUD Widget"));
 			Destroy();
 		}
+		Rifle->OnAmmoChanged.AddDynamic(PlayerHUDWidget, &UPlayerHud::SetAmmo); 
+		Rifle->ReloadAmmo(); 
 	}
 	else {
 		UE_LOG(Game, Error, TEXT("We need a valid PlayerController and WidgetClass"));
@@ -83,6 +86,7 @@ void ABasePlayer::BeginPlay() {
 		UE_LOG(LogTemp, Warning, TEXT("Player StimuliSource Registered on BeginPlay!")); 
 	}
 
+	
 }
 
 void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -109,7 +113,7 @@ void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 
 	PlayerInputComponent->BindAction("AttackInput", EInputEvent::IE_Pressed, this, &ABasePlayer::AttackInput);
-
+	PlayerInputComponent->BindAction("ReloadInput", EInputEvent::IE_Pressed, this, &ABasePlayer::ReloadInput);
 
 }
 
@@ -137,19 +141,23 @@ void ABasePlayer::AttackInput()
 {
 	Rifle->Attack(); 
 }
+void ABasePlayer::ReloadInput()
+{
+	Rifle->RequestReload(); 
+	// still need to attach animation
+}
 
 void ABasePlayer::HandleHurt(float Ratio)
 {
 	Super::HandleHurt(Ratio);
-	UPlayerHud* HUD = Cast<UPlayerHud>(PlayerHUDWidget);
-	HUD->SetHealth(Ratio);
+	PlayerHUDWidget->SetHealth(Ratio);
 	
 }
 
 void ABasePlayer::HandleDeadStart(float Ratio)
 {
 	Super::HandleDeadStart(Ratio);
-	UPlayerHud* HUD = Cast<UPlayerHud>(PlayerHUDWidget);
+	UPlayerHud* HUD = PlayerHUDWidget;
 	HUD->SetHealth(Ratio);
 	DisableInput(PlayerController);
 }
@@ -158,9 +166,10 @@ FRotator ABasePlayer::GetBaseAimRotation() const
 {
 	// return the rotaton based on reticle location
 	Super::GetBaseAimRotation();
-	FVector Destination = Cast<UPlayerHud>(PlayerHUDWidget)->GetDestinationCode();
+	FVector Destination = PlayerHUDWidget->GetDestinationCode();
 	FVector Direction = Destination - Rifle->GetSource(); 
 	FRotator NewRotation = FRotationMatrix::MakeFromX(Direction).Rotator(); 
 
 	return NewRotation; 
 }
+

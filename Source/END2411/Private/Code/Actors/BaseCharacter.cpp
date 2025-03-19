@@ -94,8 +94,8 @@ void ABaseCharacter::HandleDeadStart(float Ratio)
 }
 
 
+
 void ABaseCharacter::OnRifleAttack(AActor* Actor)
 {
 	AnimationBP->FireAnimation();
 }
-

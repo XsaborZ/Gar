@@ -53,4 +53,8 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Default")
 	void SetHealth(float newPercentHealth);
 	void SetHealth_Implementation(float newPercentHealth);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Default")
+	void SetAmmo(float Current, float Max); 
+	void SetAmmo_Implementation(float Current, float Max);
 };

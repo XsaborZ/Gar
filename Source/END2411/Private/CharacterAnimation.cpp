@@ -48,9 +48,13 @@ void UCharacterAnimation::PreviewWindowUpdate_Implementation()
 		DebugHit = false;
 		HitAnimation();
 	}
-	if (DebugHit) {
+	if (DebugDeath) {
 		DebugDeath = false;
 		DeathAnimation();
+	}
+	if (DebugReload) {
+		DebugReload = false;
+		ReloadAnimation();
 	}
 }
 
@@ -62,6 +66,11 @@ void UCharacterAnimation::FireAnimation_Implementation()
 void UCharacterAnimation::HitAnimation()
 {
 	UAnimInstance::PlaySlotAnimationAsDynamicMontage(HitAsset, ActionSlotName);
+}
+
+void UCharacterAnimation::ReloadAnimation()
+{
+	UAnimInstance::PlaySlotAnimationAsDynamicMontage(ReloadAsset, ActionSlotName);
 }
 
 void UCharacterAnimation::DeathAnimation()

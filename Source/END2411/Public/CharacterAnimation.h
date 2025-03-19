@@ -42,6 +42,9 @@ protected:
 	bool DebugHit;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Asset)
 	class UAnimSequence* HitAsset;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Asset)
+	class UAnimSequence* ReloadAsset;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Asset)
 	class UAnimSequenceBase* CurrentDeathAsset;
@@ -58,6 +61,8 @@ protected:
 	bool DebugFire;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Debug)
 	bool DebugDeath;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Debug)
+	bool DebugReload;
 	
 
 public:
@@ -72,5 +77,7 @@ public:
 	void HitAnimation();
 	UFUNCTION(BlueprintCallable)
 	void DeathAnimation();
+	UFUNCTION(BlueprintCallable)
+	void ReloadAnimation();
 
 };

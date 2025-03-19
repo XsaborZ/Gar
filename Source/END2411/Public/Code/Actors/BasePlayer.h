@@ -35,7 +35,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
 	TSubclassOf<class UUserWidget> WidgetClass;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Default")
-	class UUserWidget* PlayerHUDWidget; 
+	class UPlayerHud* PlayerHUDWidget;  
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Default")
 	class APlayerController* PlayerController;
 
@@ -57,6 +57,7 @@ public:
 private:
 
 	void AttackInput();
+	void ReloadInput();
 
 	class UHealthComponent* HealthComponent;
 

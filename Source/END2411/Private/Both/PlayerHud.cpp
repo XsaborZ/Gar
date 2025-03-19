@@ -4,6 +4,7 @@
 #include "Both/PlayerHud.h"
 #include "Components/ProgressBar.h"
 #include "Components/Image.h"
+#include "Code/Actors/CodeRifle.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Blueprint/SlateBlueprintLibrary.h"
 #include "GameFramework/PlayerController.h"
@@ -90,4 +91,10 @@ void UPlayerHud::SetHealth_Implementation(float newPercentHealth)
 {
 	HealthBar->SetPercent(newPercentHealth); 
 	//UE_LOG(Game, Log, TEXT("Percent = %f"), newPercentHealth);
+}
+
+void UPlayerHud::SetAmmo_Implementation(float Current, float Max) 
+{
+	// set current and max ammo
+	
 }
