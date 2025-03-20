@@ -52,4 +52,6 @@ private:
 
 	UFUNCTION()
 	void OnRifleAttack(AActor* Actor);
+	UFUNCTION()
+	void OnReload(float curr, float max);
 };

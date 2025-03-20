@@ -9,7 +9,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttackDelegate, AActor*, Weapon); 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnActionStoppedDelegate); 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAmmoChangedDelegate, float, Current, float, Max);
-//DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRequestReloadDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRequestReloadDelegate);
 
 UCLASS()
 class END2411_API ACodeRifle : public AActor
@@ -71,8 +71,8 @@ public:
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")
 	FOnAmmoChangedDelegate OnAmmoChanged;
 
-	//UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")  
-	//FOnRequestReloadDelegate RequestReload;
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")  
+	FOnRequestReloadDelegate OnRequestReload;
 
 
 	UFUNCTION(BlueprintCallable)

@@ -64,7 +64,7 @@ void ABaseCharacter::BeginPlay()
 	Rifle->OnAttack.AddDynamic(this, &ABaseCharacter::OnRifleAttack);
 	HealthComponent->OnHurt.AddDynamic(this, &ABaseCharacter::HandleHurt);
 	HealthComponent->OnDead.AddDynamic(this, &ABaseCharacter::HandleDeadStart);
-
+	Rifle->OnAmmoChanged.AddDynamic(this, &ABaseCharacter::OnReload);
 }
 
 // Called every frame
@@ -98,4 +98,9 @@ void ABaseCharacter::HandleDeadStart(float Ratio)
 void ABaseCharacter::OnRifleAttack(AActor* Actor)
 {
 	AnimationBP->FireAnimation();
+}
+
+
+void ABaseCharacter::OnReload(float curr, float max) {
+	AnimationBP->ReloadAnimation();
 }
