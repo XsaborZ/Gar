@@ -22,6 +22,11 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Default")
 	FVector GetDestination() const;
+
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	class UTextBlock* CurrentAmmo;
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	class UTextBlock* MaxAmmo;
 	
 protected:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
@@ -44,6 +49,8 @@ protected:
 	FLinearColor SafeColor;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Default")
 	FLinearColor DangerColor;
+
+	
 
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Variables|ReadOnly")

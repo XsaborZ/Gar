@@ -95,6 +95,7 @@ void ACodeRifle::ReloadAmmo()
 	currentAmmo = maxAmmo; 
 	// Call On Ammo Changed
 	OnAmmoChanged.Broadcast(currentAmmo,maxAmmo);
+	ActionHapenning = false; // remove this line when reload animation is made
 }
 
 void ACodeRifle::UseAmmo()

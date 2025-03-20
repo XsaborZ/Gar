@@ -7,6 +7,7 @@
 #include "Code/Actors/CodeRifle.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Blueprint/SlateBlueprintLibrary.h"
+#include "Components/TextBlock.h"
 #include "GameFramework/PlayerController.h"
 
 #include "../END2411.h"
@@ -96,5 +97,10 @@ void UPlayerHud::SetHealth_Implementation(float newPercentHealth)
 void UPlayerHud::SetAmmo_Implementation(float Current, float Max) 
 {
 	// set current and max ammo
-	
+	int intCurr = static_cast<int>(Current);
+	FString StringCurr = FString::Printf(TEXT("%d"), intCurr);
+	CurrentAmmo->SetText(FText::FromString(StringCurr));
+	int intMax = static_cast<int>(Max);
+	FString StringMax = FString::Printf(TEXT("%d"), intMax);
+	MaxAmmo->SetText(FText::FromString(StringMax));
 }

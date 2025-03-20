@@ -140,6 +140,7 @@ void ABasePlayer::InputAxisStrafe(float AxisValue)
 void ABasePlayer::AttackInput()
 {
 	Rifle->Attack(); 
+	; 
 }
 void ABasePlayer::ReloadInput()
 {
