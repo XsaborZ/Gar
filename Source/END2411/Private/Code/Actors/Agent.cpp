@@ -24,6 +24,7 @@ void AAgent::BeginPlay()
 
 	Rifle->OnActionStopped.AddDynamic(this, &AAgent::HandleActionFinished);
 	UpdateBlackboardHealth(1.0f);
+	Rifle->OnAmmoChanged.AddDynamic(this, &AAgent::UpdateBlackboardAmmo);
 	Rifle->ReloadAmmo();
 }
 
@@ -76,6 +77,27 @@ void AAgent::UpdateBlackboardHealth(float Ratio)
 
 		// Set the value of the HealthRatio key on the Blackboard
 		Blackboard->SetValueAsFloat(TEXT("HealthRatio"), Ratio); 
+	}
+}
+
+void AAgent::UpdateBlackboardAmmo(float Current, float Max)
+{
+	AAIController* aiController;
+	APawn* AsPawn = Cast<APawn>(GetController());
+	if (AsPawn != nullptr)
+	{
+		aiController = Cast<AAIController>(AsPawn->GetController());
+	}
+	else {
+		aiController = Cast<AAIController>(GetController());
+	}
+	if (aiController && aiController->GetBlackboardComponent())
+	{
+		// Get the Blackboard component from the AI Controller
+		UBlackboardComponent* Blackboard = aiController->GetBlackboardComponent();
+
+		// Set the value of the Ammo key on the Blackboard
+		Blackboard->SetValueAsFloat(TEXT("Ammo"), Current);
 	}
 }
 

@@ -30,5 +30,8 @@ private:
 	void HandleActionFinished(); 
 
 	void UpdateBlackboardHealth(float Ratio);  
+
+	UFUNCTION()
+	void UpdateBlackboardAmmo(float Current, float Max);  
 	virtual void HandleHurt(float Ratio) override;
 };
