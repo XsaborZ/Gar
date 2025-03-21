@@ -6,9 +6,9 @@
 #include "Animation/AnimInstance.h"
 #include "CharacterAnimation.generated.h"
 
-/**
- * 
- */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnActionEndedDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnReloadNowDelegate);
+
 UCLASS()
 class END2411_API UCharacterAnimation : public UAnimInstance
 {
@@ -18,7 +18,6 @@ public:
 #pragma region Day 3 Native animation
 
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override; 
-
 #pragma endregion
 
 protected:
@@ -64,10 +63,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Debug)
 	bool DebugReload;
 	
+	
 
 public:
 
-	
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")
+	FOnActionEndedDelegate OnActionEnded;
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")
+	FOnReloadNowDelegate OnReloadNow;
 
 	UFUNCTION(BlueprintNativeEvent)
 	void FireAnimation();

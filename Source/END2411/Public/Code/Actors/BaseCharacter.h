@@ -36,6 +36,8 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Default")
 	class UMyActorComponent* HealthComponent;
 
+
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -53,5 +55,9 @@ private:
 	UFUNCTION()
 	void OnRifleAttack(AActor* Actor);
 	UFUNCTION()
-	void OnReload(float curr, float max);
+	void OnReload();
+	UFUNCTION()
+	void OnReloadNow();
+	UFUNCTION()
+	void OnActionEnded();
 };

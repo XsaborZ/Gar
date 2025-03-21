@@ -3,6 +3,7 @@
 
 #include "Code/AiCode/BT_CodeAttackPlayer.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "Utility/BI_EnemyInterface.h"
 #include "AIController.h"
 
 EBTNodeResult::Type UBT_CodeAttackPlayer::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
@@ -23,7 +24,9 @@ EBTNodeResult::Type UBT_CodeAttackPlayer::ExecuteTask(UBehaviorTreeComponent& Ow
 	if (EnemyInterface)
 	{
 		EnemyInterface->Execute_PerformAttack(ControlledPawn);
-		OwnerComp.RegisterMessageObserver(this, (FName)"ActionFinished"); 
+		//OwnerComp.RegisterMessageObserver(this, (FName)"ActionFinished"); 
+		WaitForMessage(OwnerComp, (FName)"ActionFinished");
+		return EBTNodeResult::Succeeded;
 	}
-	return EBTNodeResult::InProgress;
+	return EBTNodeResult::Failed;
 }

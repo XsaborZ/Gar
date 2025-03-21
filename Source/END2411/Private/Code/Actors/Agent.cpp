@@ -24,6 +24,7 @@ void AAgent::BeginPlay()
 
 	Rifle->OnActionStopped.AddDynamic(this, &AAgent::HandleActionFinished);
 	UpdateBlackboardHealth(1.0f);
+	Rifle->ReloadAmmo();
 }
 
 void AAgent::PostRegisterAllComponents()

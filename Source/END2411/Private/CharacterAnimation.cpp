@@ -2,6 +2,7 @@
 
 
 #include "CharacterAnimation.h"
+#include "Animation/AnimNotifies/AnimNotify.h"
 //#include <KismetAnimationLibrary.h>
 
 

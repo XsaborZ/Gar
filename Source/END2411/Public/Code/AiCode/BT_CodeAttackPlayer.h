@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTTaskNode.h"
-#include "Utility/BI_EnemyInterface.h"
+
 #include "BT_CodeAttackPlayer.generated.h"
 
 /**
