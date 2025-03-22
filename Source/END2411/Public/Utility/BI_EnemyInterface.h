@@ -25,4 +25,6 @@ public:
 	// Interface function for attacking
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Attack")
 	void PerformAttack();
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Attack")
+	void EnemyReload();
 };
