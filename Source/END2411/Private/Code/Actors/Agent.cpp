@@ -50,6 +50,16 @@ void AAgent::PerformAttack_Implementation()
 	}
 }
 
+void AAgent::EnemyReload_Implementation()
+{
+	if (Rifle) {
+		Rifle->RequestReload();
+	}
+
+}
+
+
+
 void AAgent::HandleActionFinished()
 { 
 

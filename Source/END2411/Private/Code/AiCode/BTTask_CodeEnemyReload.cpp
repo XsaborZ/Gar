@@ -23,6 +23,9 @@ EBTNodeResult::Type UBTTask_CodeEnemyReload::ExecuteTask(UBehaviorTreeComponent&
 	IBI_EnemyInterface* EnemyInterface = Cast<IBI_EnemyInterface>(ControlledPawn);
 	if (EnemyInterface)
 	{
+		EnemyInterface->Execute_EnemyReload(ControlledPawn);
+		WaitForMessage(OwnerComp, (FName)"ActionFinished");
+		return EBTNodeResult::Succeeded;
 
 	}
 

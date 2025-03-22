@@ -22,6 +22,7 @@ public:
 	void PostRegisterAllComponents() override;
 
 	virtual void PerformAttack_Implementation() override;
+	virtual void EnemyReload_Implementation() override; 
 
 private:
 	void InputAction();
