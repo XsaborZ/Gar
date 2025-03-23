@@ -35,13 +35,19 @@ void ACodePickUp::PostPickup()
 	Destroy();
 }
 
+bool ACodePickUp::CanPickup(AActor* OtherActor)
+{
+	return true;
+}
+
 
 void ACodePickUp::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	
-	
-	HandlePickup(OtherActor, SweepResult); 
-	PostPickup(); 
+	bool result = CanPickup(OtherActor);
+	if (result) {
+		HandlePickup(OtherActor, SweepResult);
+		PostPickup();
+	}
 }
 
 // Called every frame

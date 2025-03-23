@@ -28,6 +28,8 @@ protected:
 
 	virtual void PostPickup();
 
+	virtual bool CanPickup(AActor* OtherActor);
+
 	
 	
 

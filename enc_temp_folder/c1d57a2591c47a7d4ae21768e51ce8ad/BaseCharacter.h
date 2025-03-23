@@ -8,8 +8,7 @@
 #include "BaseCharacter.generated.h"
 
 UCLASS(Abstract) 
-class END2411_API ABaseCharacter : public ACharacter, 
-	public IBi_PickupInterface
+class END2411_API ABaseCharacter : public ACharacter, public IBi_PickupInterface
 {
 	GENERATED_BODY()
 

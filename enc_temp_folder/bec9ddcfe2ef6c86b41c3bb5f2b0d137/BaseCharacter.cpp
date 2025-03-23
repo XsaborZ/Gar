@@ -98,7 +98,7 @@ void ABaseCharacter::HandleDeadStart(float Ratio)
 
 bool ABaseCharacter::CanPickUpHealth_Implementation()
 {
-	return false;
+	return true;
 }
 
 void ABaseCharacter::OnRifleAttack(AActor* Actor)

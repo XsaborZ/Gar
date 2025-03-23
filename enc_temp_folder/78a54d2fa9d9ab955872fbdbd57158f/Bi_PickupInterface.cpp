@@ -5,9 +5,3 @@
 #include "END2411/END2411.h"
 
 // Add default functionality here for any IBi_PickupInterface functions that are not pure virtual.
-
-bool IBi_PickupInterface::CanPickUpHealth_Implementation()
-{
-    UE_LOG(LogTemp, Warning, TEXT("Interface called!"));
-    return true;
-}

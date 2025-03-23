@@ -20,7 +20,6 @@ class END2411_API IBi_PickupInterface
 
 public:
 	// Declaring the BlueprintNativeEvent
-	UFUNCTION(BlueprintNativeEvent)
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	bool CanPickUpHealth();
-	virtual bool CanPickUpHealth_Implementation();
 };
