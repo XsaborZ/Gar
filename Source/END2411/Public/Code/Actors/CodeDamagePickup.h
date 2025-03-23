@@ -21,12 +21,17 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
 	float damageAmount;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
+	bool DestroyOnPickup;
 	
 	UFUNCTION() 
 	virtual void HandlePickup(AActor* OtherActor, const FHitResult& SweepResult) override; 
 
 	UFUNCTION()
-	virtual void ApplyDamage(AActor* DamagedActor, float BaseDamage, AActor* DamageCauser);
+	void ApplyDamage(AActor* DamagedActor, float BaseDamage, AActor* DamageCauser);
+	
+	UFUNCTION()
+	virtual void PostPickup() override;
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Effects", meta = (AllowPrivateAccess = "true"))

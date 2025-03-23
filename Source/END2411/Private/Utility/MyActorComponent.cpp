@@ -42,18 +42,24 @@ void UMyActorComponent::HandleDamage(AActor* DamagedActor, float Damage, const U
 	CurrentHealth = FMath::Clamp(CurrentHealth - Damage, 0.0f, MaxHealth);
 	float HealthPercent = CurrentHealth / MaxHealth;
 
-	if (CurrentHealth > 0.0f)
-	{
-		UE_LOG(LogTemp, Log, TEXT("%s took a hit. Current health is: %f"), *Owner->GetName(), CurrentHealth);
+	if (Damage > 0) {
+		if (CurrentHealth > 0.0f)
+		{
+			UE_LOG(LogTemp, Log, TEXT("%s took a hit. Current health is: %f"), *Owner->GetName(), CurrentHealth);
 
-		OnHurt.Broadcast(HealthPercent);
+			OnHurt.Broadcast(HealthPercent);
+		}
+		else {
+			UE_LOG(LogTemp, Log, TEXT("%s Current health is < 0 : %f"), *Owner->GetName(), CurrentHealth);
+
+			Owner->OnTakeAnyDamage.RemoveDynamic(this, &UMyActorComponent::HandleDamage);
+			float dead = 0;
+			OnDead.Broadcast(dead);
+		}
 	}
 	else {
-		UE_LOG(LogTemp, Log, TEXT("%s Current health is < 0 : %f"), *Owner->GetName(), CurrentHealth);
-
-		Owner->OnTakeAnyDamage.RemoveDynamic(this, &UMyActorComponent::HandleDamage);
-		float dead = 0;
-		OnDead.Broadcast(dead); 
+		// call on heal
+		OnHeal.Broadcast(HealthPercent);
 	}
 	OnTakeAnyDamage.Broadcast(Damage); 
 }

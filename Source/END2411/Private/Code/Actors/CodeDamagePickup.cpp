@@ -20,9 +20,6 @@ void ACodeDamagePickup::BeginPlay()
 	if (PickupEffect)
 	{
 		PickupEffect->ActivateSystem();
-		if (damageAmount == 0) {
-			return;
-		}
 	}
 }
 
@@ -41,4 +38,10 @@ void ACodeDamagePickup::ApplyDamage(AActor* DamagedActor, float BaseDamage, AAct
 		FDamageEvent DamageEvent(ValidDamageTypeClass);
 		DamagedActor->TakeDamage(BaseDamage, DamageEvent, NULL, DamageCauser);
 	}
+}
+
+void ACodeDamagePickup::PostPickup()
+{
+	if(DestroyOnPickup) // made this a bool in BP so i can toggle it in editor
+		Super::PostPickup();
 }

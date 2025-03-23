@@ -6,6 +6,7 @@
 #include "Camera/CameraComponent.h"
 
 #include "Code/Actors/CodeRifle.h"
+#include "Utility/MyActorComponent.h"
 
 #include "Both/PlayerHUD.h"
 
@@ -62,11 +63,15 @@ void ABasePlayer::BeginPlay() {
 		}
 		Rifle->OnAmmoChanged.AddDynamic(PlayerHUDWidget, &UPlayerHud::SetAmmo); 
 		Rifle->ReloadAmmo(); 
+		if (HealthComponent) {
+			HealthComponent->OnHeal.AddDynamic(PlayerHUDWidget, &UPlayerHud::SetHealth);
+		}
 	}
 	else {
 		UE_LOG(Game, Error, TEXT("We need a valid PlayerController and WidgetClass"));
 		Destroy();
 	}	
+	
 }
 
 void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

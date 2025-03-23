@@ -59,7 +59,8 @@ private:
 	void AttackInput();
 	void ReloadInput();
 
-	class UHealthComponent* HealthComponent;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Default")
+	//class UHealthComponent* HealthComponent;
 
 	virtual void HandleHurt(float Ratio) override;
 	virtual void HandleDeadStart(float Ratio) override;

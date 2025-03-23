@@ -26,8 +26,7 @@ protected:
 
 	virtual void HandlePickup(AActor* OtherActor, const FHitResult& SweepResult);
 
-	UFUNCTION()
-	void PostPickup();
+	virtual void PostPickup();
 
 	
 	

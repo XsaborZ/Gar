@@ -9,6 +9,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnTakeAnyDamage, float, Other);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHurt, float, HealthPercent);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnDead, float, Ratio);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHeal, float, Ratio); 
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -29,14 +30,12 @@ public:
 	//Create a variable of the Delegate type created above line 12
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")
 	FOnTakeAnyDamage OnTakeAnyDamage;
-
-	//Create a variable of the Delegate type created above line 12
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")
 	FOnHurt OnHurt;
-
-	//Create a variable of the Delegate type created above line 12
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")
 	FOnDead OnDead;
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")
+	FOnHeal OnHeal;
 
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
