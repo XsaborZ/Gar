@@ -158,3 +158,8 @@ FRotator ABasePlayer::GetBaseAimRotation() const
 	return NewRotation; 
 }
 
+bool ABasePlayer::CanPickUpHealth()
+{
+	return true;
+}
+

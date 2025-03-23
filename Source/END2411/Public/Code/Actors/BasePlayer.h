@@ -54,6 +54,8 @@ public:
 
 	virtual FRotator GetBaseAimRotation() const override;
 
+	virtual bool CanPickUpHealth() override;
+
 private:
 
 	void AttackInput();

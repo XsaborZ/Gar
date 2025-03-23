@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Utility/Bi_PickupInterface.h" 
 #include "BaseCharacter.generated.h"
 
 UCLASS(Abstract) 
-class END2411_API ABaseCharacter : public ACharacter
+class END2411_API ABaseCharacter : public ACharacter, public IBi_PickupInterface
 {
 	GENERATED_BODY()
 
@@ -50,6 +51,9 @@ public:
 	UFUNCTION()
 	virtual void HandleDeadStart(float Ratio);
 
+	UFUNCTION()
+	virtual bool CanPickUpHealth() override;
+
 private:
 
 	UFUNCTION()
@@ -60,4 +64,6 @@ private:
 	void OnReloadNow();
 	UFUNCTION()
 	void OnActionEnded();
+	
+
 };

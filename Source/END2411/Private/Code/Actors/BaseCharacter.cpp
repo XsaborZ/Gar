@@ -95,6 +95,11 @@ void ABaseCharacter::HandleDeadStart(float Ratio)
 	Rifle->OwnerDied();
 }
 
+bool ABaseCharacter::CanPickUpHealth()
+{
+	return false;
+}
+
 
 
 void ABaseCharacter::OnRifleAttack(AActor* Actor)
@@ -115,4 +120,9 @@ void ABaseCharacter::OnReloadNow()
 void ABaseCharacter::OnActionEnded()
 {
 	Rifle->ActionStopped();
+}
+
+void ABaseCharacter::PickUpHealth()
+{
+	
 }
