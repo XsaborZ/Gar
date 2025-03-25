@@ -14,6 +14,12 @@ class END2411_API UCodeGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 	
+private:
+	UPROPERTY(EditAnywhere)
+	int FirstLevelIndex;
+
+	UPROPERTY(EditAnywhere)
+	int CurrentLevelIndex;
 
 public:
 	
@@ -22,9 +28,13 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "Game Events")
 	void QuitGame();
+	
+	UFUNCTION(BlueprintCallable, Category = "Game Events")
+	void LoadCurrentLevel();
+	UFUNCTION(BlueprintCallable, Category = "Game Events")
+	void LoadMainMenu();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int FirstLevelIndex;
+	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FName> GameLevels;

@@ -12,6 +12,8 @@ void UCodeGameInstance::LoadFirstLevel()
 
 void UCodeGameInstance::LoadLevelSafe(int index)
 {
+	//still needs the checker for level
+	
 	FName LevelName = GameLevels[index];
 	UGameplayStatics::OpenLevel(GetWorld(), LevelName, true);
 
@@ -24,5 +26,15 @@ void UCodeGameInstance::QuitGame()
 	UWorld* World = GetWorld(); 
 	APlayerController* PlayerController = World->GetFirstPlayerController(); 
 	UKismetSystemLibrary::QuitGame(World, PlayerController, EQuitPreference::Quit, false);
+}
+
+void UCodeGameInstance::LoadCurrentLevel()
+{
+	LoadLevelSafe(CurrentLevelIndex);
+}
+
+void UCodeGameInstance::LoadMainMenu()
+{
+	LoadLevelSafe(0);
 }
 

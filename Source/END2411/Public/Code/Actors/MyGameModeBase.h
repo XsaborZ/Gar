@@ -19,6 +19,9 @@ protected:
 private:
 	UPROPERTY()
 	int NumOfEnemies = 0;
+	
+	//UPROPERTY()
+	//class WBP_CodeResultsWidget &ResultsWidget;
 
 	UFUNCTION()
 	void RemovePlayer();

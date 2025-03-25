@@ -26,6 +26,8 @@ void AMyGameModeBase::BeginPlay()
 		}
 	}
 	UE_LOG(LogTemp, Warning, TEXT("Number of Enemies: %d"), NumOfEnemies);
+
+	// win loss stuff here
 }
 
 void AMyGameModeBase::RemovePlayer()
