@@ -13,5 +13,21 @@ UCLASS()
 class END2411_API AMyGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+protected:
+	virtual void BeginPlay() override;
+
+private:
+	UPROPERTY()
+	int NumOfEnemies = 0;
+
+	UFUNCTION()
+	void RemovePlayer();
+
+public:
+	UFUNCTION()
+	void RemoveEnemy(AActor* Actor);
+
+	UFUNCTION()
+	void AddEnemy(AActor* EnemyActor); 
+
 };

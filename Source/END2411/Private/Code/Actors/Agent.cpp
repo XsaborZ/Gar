@@ -6,6 +6,7 @@
 #include "AIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "BrainComponent.h"
+#include "CharacterAnimation.h"
 
 AAgent::AAgent()
 {
@@ -26,6 +27,8 @@ void AAgent::BeginPlay()
 	UpdateBlackboardHealth(1.0f);
 	Rifle->OnAmmoChanged.AddDynamic(this, &AAgent::UpdateBlackboardAmmo);
 	Rifle->ReloadAmmo();
+
+	AnimationBP->OnDeathEnded.AddDynamic(this, &AActor::K2_DestroyActor);
 }
 
 void AAgent::PostRegisterAllComponents()

@@ -6,9 +6,8 @@
 #include "Code/Actors/BaseCharacter.h"
 #include "BasePlayer.generated.h"
 
-/**
- * 
- */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerLostDelegate);
+
 UCLASS()
 class END2411_API ABasePlayer : public ABaseCharacter
 {
@@ -56,6 +55,9 @@ public:
 
 	virtual bool CanPickUpHealth_Implementation() override;
 
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")
+	FOnPlayerLostDelegate OnPlayerLost; 
+
 private:
 
 	void AttackInput();
@@ -66,4 +68,9 @@ private:
 
 	virtual void HandleHurt(float Ratio) override;
 	virtual void HandleDeadStart(float Ratio) override;
+
+	UFUNCTION()
+	void PlayerLost();
+
+	
 };

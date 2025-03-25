@@ -8,6 +8,8 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnActionEndedDelegate);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnReloadNowDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeathEndedDelegate);
+
 
 UCLASS()
 class END2411_API UCharacterAnimation : public UAnimInstance
@@ -63,7 +65,11 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Debug)
 	bool DebugReload;
 	
-	
+private:
+	UPROPERTY() 
+	FTimerHandle DeathAnimationTimerHandle; 
+	UFUNCTION() 
+	void DeathEnded();
 
 public:
 
@@ -71,6 +77,8 @@ public:
 	FOnActionEndedDelegate OnActionEnded;
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")
 	FOnReloadNowDelegate OnReloadNow;
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")
+	FOnDeathEndedDelegate OnDeathEnded;
 
 	UFUNCTION(BlueprintNativeEvent)
 	void FireAnimation();

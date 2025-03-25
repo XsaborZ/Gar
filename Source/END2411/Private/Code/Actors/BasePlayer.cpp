@@ -8,7 +8,7 @@
 #include "Code/Actors/CodeRifle.h"
 #include "Utility/MyActorComponent.h"
 #include "Utility/Bi_PickupInterface.h" 
-
+#include "CharacterAnimation.h"
 
 #include "Both/PlayerHUD.h"
 
@@ -74,6 +74,8 @@ void ABasePlayer::BeginPlay() {
 		Destroy();
 	}	
 	
+	AnimationBP->OnDeathEnded.AddDynamic(this, &ABasePlayer::PlayerLost);
+
 }
 
 void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -165,3 +167,7 @@ bool ABasePlayer::CanPickUpHealth_Implementation()
 	return true;
 }
 
+void ABasePlayer::PlayerLost()
+{
+	OnPlayerLost.Broadcast();
+}

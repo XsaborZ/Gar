@@ -59,6 +59,8 @@ void UCharacterAnimation::PreviewWindowUpdate_Implementation()
 	}
 }
 
+
+
 void UCharacterAnimation::FireAnimation_Implementation()
 {
 	UAnimInstance::PlaySlotAnimationAsDynamicMontage(FireAsset, ActionSlotName);
@@ -78,4 +80,12 @@ void UCharacterAnimation::DeathAnimation()
 {
 	int32 RandDeathAsset = FMath::RandRange(0, DeathAssets.Num() - 1);
  	CurrentDeathAsset = DeathAssets[RandDeathAsset];
+	GetWorld()->GetTimerManager().SetTimer(DeathAnimationTimerHandle, this, &UCharacterAnimation::DeathEnded, CurrentDeathAsset->GetPlayLength(), false);
+	
+}
+
+void UCharacterAnimation::DeathEnded()
+{
+	OnDeathEnded.Broadcast();
+	UE_LOG(LogTemp, Warning, TEXT("Death animation has finished."));
 }
