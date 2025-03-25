@@ -3,11 +3,19 @@
 
 #include "CodeMenuWidget.h"
 #include "Both/CodeButton.h"
+#include "Kismet/GameplayStatics.h"
+#include "Utility/CodeGameInstance.h"
 
 void UCodeMenuWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
+	
+	UGameInstance* GameInstance = UGameplayStatics::GetGameInstance(GetWorld());
+	UCodeGameInstance* CodeGameInstance = Cast<UCodeGameInstance>(GameInstance); 
 
-	//StartGameButton->OnClickedDelegate.AddDynamic(this, );
-	//QuitGameButton->OnClickedDelegate.AddDynamic(this, );
+	if (CodeGameInstance) {
+
+		StartGameButton->OnClickedDelegate.AddDynamic(CodeGameInstance, &UCodeGameInstance::LoadFirstLevel);
+		QuitGameButton->OnClickedDelegate.AddDynamic(CodeGameInstance, &UCodeGameInstance::QuitGame);
+	}
 }

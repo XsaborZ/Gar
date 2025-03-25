@@ -23,5 +23,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Game Events")
 	void QuitGame();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int FirstLevelIndex;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FName> GameLevels;
+
 	void LoadLevelSafe(int index);
 };

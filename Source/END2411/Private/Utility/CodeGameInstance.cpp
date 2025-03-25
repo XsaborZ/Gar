@@ -3,11 +3,21 @@
 
 #include "Utility/CodeGameInstance.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Kismet/GameplayStatics.h"
 
 void UCodeGameInstance::LoadFirstLevel()
 {
+	LoadLevelSafe(FirstLevelIndex);
+}
+
+void UCodeGameInstance::LoadLevelSafe(int index)
+{
+	FName LevelName = GameLevels[index];
+	UGameplayStatics::OpenLevel(GetWorld(), LevelName, true);
 
 }
+
+
 
 void UCodeGameInstance::QuitGame()
 {
@@ -15,3 +25,4 @@ void UCodeGameInstance::QuitGame()
 	APlayerController* PlayerController = World->GetFirstPlayerController(); 
 	UKismetSystemLibrary::QuitGame(World, PlayerController, EQuitPreference::Quit, false);
 }
+

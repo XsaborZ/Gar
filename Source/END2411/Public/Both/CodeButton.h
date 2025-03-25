@@ -31,6 +31,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	class UButton* Background_Button;
 
+	UFUNCTION()
 	void HandleOnClicked();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

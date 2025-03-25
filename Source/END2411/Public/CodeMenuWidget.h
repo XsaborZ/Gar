@@ -6,9 +6,6 @@
 #include "Blueprint/UserWidget.h"
 #include "CodeMenuWidget.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class END2411_API UCodeMenuWidget : public UUserWidget
 {

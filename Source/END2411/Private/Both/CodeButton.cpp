@@ -12,7 +12,10 @@ void UCodeButton::NativePreConstruct()
 
 void UCodeButton::NativeConstruct()
 {
-	Background_Button->OnClicked.AddDynamic(this, &UCodeButton::HandleOnClicked);
+	Super::NativeConstruct();
+	if (Background_Button) {
+		Background_Button->OnClicked.AddDynamic(this, &UCodeButton::HandleOnClicked); 
+	}
 }
 
 void UCodeButton::HandleOnClicked()
