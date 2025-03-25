@@ -9,7 +9,7 @@ public class END2411 : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", 
-			"InputCore", "AnimGraphRuntime", "UMG", "AIModule", "NavigationSystem", "GameplayTasks"});
+			"InputCore", "AnimGraphRuntime", "UMG", "AIModule", "NavigationSystem", "GameplayTasks", "EnhancedInput"}); 
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
