@@ -108,14 +108,14 @@ void ACodeRifle::UseAmmo()
 
 void ACodeRifle::MaxAmmo()
 {
-	OriginalMaxAmmo = maxAmmo;
-	maxAmmo = 999.0f;
+	//OriginalMaxAmmo = maxAmmo;
+	maxAmmo++;
 	ReloadAmmo();
 	OnAmmoChanged.Broadcast(currentAmmo, maxAmmo);
-	FTimerHandle MaxAmmoTimerHandle;
-	GetWorld()->GetTimerManager().SetTimer(MaxAmmoTimerHandle, this, &ACodeRifle::ResetAmmo, 10, false);
+	//FTimerHandle MaxAmmoTimerHandle;
+	//GetWorld()->GetTimerManager().SetTimer(MaxAmmoTimerHandle, this, &ACodeRifle::ResetAmmo, 10, false);
 }
-void ACodeRifle::ResetAmmo()
+void ACodeRifle::ResetAmmo()  // use if ammo needs to be reset to an original value
 {
 	maxAmmo = OriginalMaxAmmo;
 	ReloadAmmo();
