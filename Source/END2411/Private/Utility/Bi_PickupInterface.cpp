@@ -11,3 +11,8 @@ bool IBi_PickupInterface::CanPickUpHealth_Implementation()
     UE_LOG(LogTemp, Warning, TEXT("Interface called!"));
     return true;
 }
+
+void IBi_PickupInterface::CanPickAmmoBox_Implementation() 
+{
+    UE_LOG(LogTemp, Warning, TEXT("Interface maxAmmo called!"));
+}

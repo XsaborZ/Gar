@@ -10,6 +10,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttackDelegate, AActor*, Weapon);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnActionStoppedDelegate); 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAmmoChangedDelegate, float, Current, float, Max);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRequestReloadDelegate);
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMaxAmmoDelegate); 
 
 UCLASS()
 class END2411_API ACodeRifle : public AActor
@@ -42,9 +43,12 @@ protected:
 	bool Alive;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
 	float maxAmmo;
+	UPROPERTY(BlueprintReadOnly)
+	float OriginalMaxAmmo;
 
 	UFUNCTION(BlueprintCallable)
 	void UseAmmo();
+	
 
 public:	
 	// Called every frame
@@ -56,6 +60,9 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void Attack();
 	virtual void Attack_Implementation(); // override in c++
+
+	UFUNCTION(BlueprintCallable)
+	void MaxAmmo();
 
 	UFUNCTION(BlueprintCallable)
 	void ActionStopped();
@@ -73,6 +80,9 @@ public:
 
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")  
 	FOnRequestReloadDelegate OnRequestReload;
+	
+	//UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")  
+	//FOnMaxAmmoDelegate OnMaxAmmo;
 
 
 	UFUNCTION(BlueprintCallable)

@@ -106,6 +106,14 @@ void ACodeRifle::UseAmmo()
 	OnAmmoChanged.Broadcast(currentAmmo, maxAmmo);
 }
 
+void ACodeRifle::MaxAmmo()
+{
+	OriginalMaxAmmo = maxAmmo;
+	maxAmmo = 999.0f;
+	currentAmmo = 999.0f;
+	OnAmmoChanged.Broadcast(currentAmmo, maxAmmo);
+}
+
 void ACodeRifle::RequestReload()
 {
 	if (!ActionHapenning) {

@@ -75,7 +75,7 @@ void ABasePlayer::BeginPlay() {
 	}	
 	
 	AnimationBP->OnDeathEnded.AddDynamic(this, &ABasePlayer::PlayerLost);
-
+	//Rifle->OnMaxAmmo.AddDynamic(this, &ABasePlayer::GrantMaxAmmo);
 }
 
 void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -167,6 +167,11 @@ bool ABasePlayer::CanPickUpHealth_Implementation()
 	return true;
 }
 
+void ABasePlayer::CanPickAmmoBox_Implementation()
+{
+	GrantMaxAmmo();
+}
+
 void ABasePlayer::PlayerLost()
 {
 	OnPlayerLost.Broadcast();
@@ -178,4 +183,12 @@ void ABasePlayer::PlayerWin()
 {
 	DisableInput(PlayerController);
 	PlayerHUDWidget->RemoveFromParent();
+}
+
+
+
+void ABasePlayer::GrantMaxAmmo()
+{
+	// call rifle function
+	Rifle->MaxAmmo();
 }

@@ -7,6 +7,7 @@
 #include "BasePlayer.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerLostDelegate);
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMaxAmmoDelegate);
 
 UCLASS()
 class END2411_API ABasePlayer : public ABaseCharacter
@@ -54,14 +55,19 @@ public:
 	virtual FRotator GetBaseAimRotation() const override;
 
 	virtual bool CanPickUpHealth_Implementation() override;
+	virtual void CanPickAmmoBox_Implementation() override; 
 
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")
 	FOnPlayerLostDelegate OnPlayerLost; 
+	//UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")
+	//FOnMaxAmmoDelegate OnMaxAmmo;
 
 	UFUNCTION() 
 	void PlayerLost(); 
 	UFUNCTION() 
 	void PlayerWin(); 
+	UFUNCTION() 
+	void GrantMaxAmmo(); 
 
 private:
 

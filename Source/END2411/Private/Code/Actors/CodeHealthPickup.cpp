@@ -20,14 +20,11 @@ bool ACodeHealthPickup::CanPickup(AActor* OtherActor)
         // Swapped off Execute cause I spent 20 hours trying to get the overrides working.  it not once stepped into the overrides.  
         // So i have no idea if this is done corectly but it works like the example now
 
-        IBi_PickupInterface* InterfaceInstance = Cast<IBi_PickupInterface>(OtherActor);
-        if (InterfaceInstance)
-        {
-            //UE_LOG(LogTemp, Warning, TEXT("Directly calling CanPickUpHealth()"));
-            bool bDirectCall = InterfaceInstance->CanPickUpHealth_Implementation();
-            //UE_LOG(LogTemp, Warning, TEXT("Direct Call Result: %s"), bDirectCall ? TEXT("true") : TEXT("false"));
-            return bDirectCall;
+        IBi_PickupInterface* InterfaceInstance = Cast<IBi_PickupInterface>(OtherActor);;
+        if (InterfaceInstance) {
+            return InterfaceInstance->Execute_CanPickUpHealth(OtherActor);
         }
+        return false;
     }
     UE_LOG(LogTemp, Warning, TEXT("%s does NOT implement IBi_PickupInterface"), *OtherActor->GetName());
     return false;

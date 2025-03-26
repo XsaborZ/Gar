@@ -23,4 +23,8 @@ public:
 	UFUNCTION(BlueprintNativeEvent)
 	bool CanPickUpHealth();
 	virtual bool CanPickUpHealth_Implementation();
+
+	UFUNCTION(BlueprintNativeEvent)
+	void CanPickAmmoBox();
+	virtual void CanPickAmmoBox_Implementation();
 };
