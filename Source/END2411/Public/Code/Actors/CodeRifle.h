@@ -48,6 +48,8 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void UseAmmo();
+	UFUNCTION(BlueprintCallable)
+	void ResetAmmo();
 	
 
 public:	
