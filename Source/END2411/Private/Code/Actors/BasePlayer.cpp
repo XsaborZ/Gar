@@ -170,4 +170,12 @@ bool ABasePlayer::CanPickUpHealth_Implementation()
 void ABasePlayer::PlayerLost()
 {
 	OnPlayerLost.Broadcast();
+	PlayerController->bShowMouseCursor = true;
+	PlayerHUDWidget->RemoveFromParent();
+}
+
+void ABasePlayer::PlayerWin()
+{
+	DisableInput(PlayerController);
+	PlayerHUDWidget->RemoveFromParent();
 }

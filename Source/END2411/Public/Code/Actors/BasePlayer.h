@@ -58,6 +58,11 @@ public:
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")
 	FOnPlayerLostDelegate OnPlayerLost; 
 
+	UFUNCTION() 
+	void PlayerLost(); 
+	UFUNCTION() 
+	void PlayerWin(); 
+
 private:
 
 	void AttackInput();
@@ -69,8 +74,7 @@ private:
 	virtual void HandleHurt(float Ratio) override;
 	virtual void HandleDeadStart(float Ratio) override;
 
-	UFUNCTION()
-	void PlayerLost();
+	
 
 	
 };

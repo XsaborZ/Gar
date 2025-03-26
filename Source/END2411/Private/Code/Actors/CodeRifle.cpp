@@ -64,7 +64,7 @@ void ACodeRifle::Attack_Implementation()
 		
 		ActionHapenning = true;
 		FTimerHandle ActionTimerHandle;
-		GetWorld()->GetTimerManager().SetTimer(ActionTimerHandle, this, &ACodeRifle::ActionStopped, 2.0f); // time between shots
+		GetWorld()->GetTimerManager().SetTimer(ActionTimerHandle, this, &ACodeRifle::ActionStopped, ResetTime); // time between shots
 		// Broadcast the OnAttack event
 		OnAttack.Broadcast(this);
 		UseAmmo();

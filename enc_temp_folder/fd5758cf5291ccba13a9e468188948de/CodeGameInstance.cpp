@@ -8,7 +8,6 @@
 void UCodeGameInstance::LoadFirstLevel()
 {
 	LoadLevelSafe(FirstLevelIndex);
-	CurrentLevelIndex = FirstLevelIndex;
 }
 
 void UCodeGameInstance::LoadLevelSafe(int index)
