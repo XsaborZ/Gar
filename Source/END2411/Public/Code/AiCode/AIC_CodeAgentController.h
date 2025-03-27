@@ -30,7 +30,8 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Default")
     class UBehaviorTree* BTAsset;
 
-    
+    ETeamAttitude::Type GetTeamAttitudeTowards(const AActor& Other) const override;
+    void ASightAIController(int teamId);
     
 protected:
     virtual void OnPossess(APawn* InPawn) override;  
@@ -44,4 +45,7 @@ protected:
 private:
     UFUNCTION()
     void HandlePerception(AActor* Actor, FAIStimulus Stimulus); 
+
+   
+    
 };

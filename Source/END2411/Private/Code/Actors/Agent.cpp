@@ -12,6 +12,7 @@ AAgent::AAgent()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = false;
+	AAIController::SetGenericTeamId(TeamID);
 }
 
 void AAgent::Tick(float DeltaTime)

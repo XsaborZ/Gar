@@ -66,6 +66,23 @@ void AAIC_CodeAgentController::BeginPlay()
 }
 
 
+ETeamAttitude::Type AAIC_CodeAgentController::GetTeamAttitudeTowards(const AActor& Other) const
+{
+    if (const APawn* OtherPawn = Cast<APawn>(&Other))
+    {
+        if (const IGenericTeamAgentInterface* TeamAgent = Cast<IGenericTeamAgentInterface>(OtherPawn->GetController()))
+        {
+            return Super::GetTeamAttitudeTowards(*OtherPawn->GetController());
+        }
+    }
+    return ETeamAttitude::Hostile;
+}
+
+void AAIC_CodeAgentController::ASightAIController(int teamId)
+{
+    FGenericTeamId(teamId);
+}
+
 void AAIC_CodeAgentController::OnPossess(APawn* InPawn)
 {
     Super::OnPossess(InPawn);

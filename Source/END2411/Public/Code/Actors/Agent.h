@@ -23,7 +23,7 @@ public:
 
 	virtual void PerformAttack_Implementation() override;
 	virtual void EnemyReload_Implementation() override; 
-
+	//virtual void SetGenericTeamId(const FGenericTeamId& NewTeamID) override; 
 private:
 	void InputAction();
 
@@ -35,4 +35,5 @@ private:
 	UFUNCTION()
 	void UpdateBlackboardAmmo(float Current, float Max);  
 	virtual void HandleHurt(float Ratio) override;
+
 };

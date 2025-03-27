@@ -38,7 +38,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Default")
 	class UMyActorComponent* HealthComponent;
 
-
+	
 
 public:	
 	// Called every frame
@@ -53,6 +53,9 @@ public:
 	virtual void HandleDeadStart(float Ratio);
 
 	virtual bool CanPickUpHealth_Implementation() override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Teams")
+	int32 TeamID = 0; 
 
 private:
 
