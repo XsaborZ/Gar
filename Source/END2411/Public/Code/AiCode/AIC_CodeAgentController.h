@@ -31,7 +31,10 @@ public:
     class UBehaviorTree* BTAsset;
 
     ETeamAttitude::Type GetTeamAttitudeTowards(const AActor& Other) const override;
-    void ASightAIController(int teamId);
+
+    virtual FGenericTeamId GetGenericTeamId() const override;
+    void SetGenericTeamId(const FGenericTeamId& NewTeamID);
+    
     
 protected:
     virtual void OnPossess(APawn* InPawn) override;  
@@ -43,6 +46,8 @@ protected:
     UAISenseConfig_Sight* SightConfig;
 
 private:
+    FGenericTeamId TeamID;
+
     UFUNCTION()
     void HandlePerception(AActor* Actor, FAIStimulus Stimulus); 
 

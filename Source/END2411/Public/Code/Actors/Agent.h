@@ -5,13 +5,14 @@
 #include "CoreMinimal.h"
 #include "Code/Actors/BaseCharacter.h"
 #include "Utility/BI_EnemyInterface.h"
+#include "GenericTeamAgentInterface.h"
 #include "Agent.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class END2411_API AAgent : public ABaseCharacter, public IBI_EnemyInterface
+class END2411_API AAgent : public ABaseCharacter, public IBI_EnemyInterface, public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
 
@@ -23,7 +24,7 @@ public:
 
 	virtual void PerformAttack_Implementation() override;
 	virtual void EnemyReload_Implementation() override; 
-	//virtual void SetGenericTeamId(const FGenericTeamId& NewTeamID) override; 
+	virtual FGenericTeamId GetGenericTeamId() const override;
 private:
 	void InputAction();
 

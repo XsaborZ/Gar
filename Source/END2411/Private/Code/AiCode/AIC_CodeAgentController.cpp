@@ -6,6 +6,7 @@
 #include "BehaviorTree/BehaviorTree.h"
 #include "AI/NavigationSystemBase.h"
 #include "GameFramework/Character.h"
+#include "GenericTeamAgentInterface.h"
 #include "Perception/AIPerceptionStimuliSourceComponent.h"
 
 AAIC_CodeAgentController::AAIC_CodeAgentController()
@@ -52,6 +53,8 @@ AAIC_CodeAgentController::AAIC_CodeAgentController()
     {
         UE_LOG(LogTemp, Error, TEXT("AIPerceptionComp is NULL!"));
     }
+
+    TeamID = FGenericTeamId(1);
 }
 void AAIC_CodeAgentController::BeginPlay()
 {
@@ -68,19 +71,24 @@ void AAIC_CodeAgentController::BeginPlay()
 
 ETeamAttitude::Type AAIC_CodeAgentController::GetTeamAttitudeTowards(const AActor& Other) const
 {
-    if (const APawn* OtherPawn = Cast<APawn>(&Other))
-    {
-        if (const IGenericTeamAgentInterface* TeamAgent = Cast<IGenericTeamAgentInterface>(OtherPawn->GetController()))
-        {
-            return Super::GetTeamAttitudeTowards(*OtherPawn->GetController());
-        }
-    }
-    return ETeamAttitude::Hostile;
-}
+    const APawn* OtherPawn = Cast<APawn>(&Other);
+    if (!OtherPawn) return ETeamAttitude::Neutral;
 
-void AAIC_CodeAgentController::ASightAIController(int teamId)
-{
-    FGenericTeamId(teamId);
+    const IGenericTeamAgentInterface* TeamAgent = Cast<IGenericTeamAgentInterface>(OtherPawn->GetController());
+    if (!TeamAgent) return ETeamAttitude::Neutral;
+
+    FGenericTeamId OtherTeamID = TeamAgent->GetGenericTeamId();
+
+    if (OtherTeamID == TeamID)
+    {
+        return ETeamAttitude::Friendly;
+    }
+    else if (OtherTeamID == FGenericTeamId(0)) // Assuming 0 is the Player's team
+    {
+        return ETeamAttitude::Hostile;
+    }
+
+    return ETeamAttitude::Neutral;
 }
 
 void AAIC_CodeAgentController::OnPossess(APawn* InPawn)
@@ -122,4 +130,15 @@ void AAIC_CodeAgentController::HandlePerception(AActor* Actor, FAIStimulus Stimu
         GetBlackboardComponent()->ClearValue(FName("Player"));
     }
 }
+
+FGenericTeamId AAIC_CodeAgentController::GetGenericTeamId() const
+{
+    return TeamID;
+}
+
+void AAIC_CodeAgentController::SetGenericTeamId(const FGenericTeamId& NewTeamID)
+{
+    TeamID = NewTeamID;
+}
+
 

@@ -4,13 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Code/Actors/BaseCharacter.h"
+#include "GenericTeamAgentInterface.h"
 #include "BasePlayer.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerLostDelegate);
 //DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMaxAmmoDelegate);
 
 UCLASS()
-class END2411_API ABasePlayer : public ABaseCharacter
+class END2411_API ABasePlayer : public ABaseCharacter, public IGenericTeamAgentInterface 
 {
 	GENERATED_BODY()
 	
@@ -61,6 +62,8 @@ public:
 	FOnPlayerLostDelegate OnPlayerLost; 
 	//UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Default")
 	//FOnMaxAmmoDelegate OnMaxAmmo;
+
+	virtual FGenericTeamId GetGenericTeamId() const override; 
 
 	UFUNCTION() 
 	void PlayerLost(); 

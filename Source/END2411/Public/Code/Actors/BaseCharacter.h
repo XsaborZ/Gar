@@ -54,8 +54,8 @@ public:
 
 	virtual bool CanPickUpHealth_Implementation() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Teams")
-	int32 TeamID = 0; 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Teams")	
+	int TeamID = 0; 
 
 private:
 

@@ -12,7 +12,6 @@ AAgent::AAgent()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = false;
-	AAIController::SetGenericTeamId(TeamID);
 }
 
 void AAgent::Tick(float DeltaTime)
@@ -60,6 +59,11 @@ void AAgent::EnemyReload_Implementation()
 		Rifle->RequestReload();
 	}
 
+}
+
+FGenericTeamId AAgent::GetGenericTeamId() const
+{
+	return FGenericTeamId(TeamID);
 }
 
 

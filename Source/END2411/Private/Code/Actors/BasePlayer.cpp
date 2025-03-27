@@ -10,6 +10,8 @@
 #include "Utility/Bi_PickupInterface.h" 
 #include "CharacterAnimation.h"
 
+#include "Perception/AIPerceptionSystem.h"
+
 #include "Both/PlayerHUD.h"
 
 #include "../END2411.h"
@@ -185,10 +187,13 @@ void ABasePlayer::PlayerWin()
 	PlayerHUDWidget->RemoveFromParent();
 }
 
-
-
 void ABasePlayer::GrantMaxAmmo()
 {
 	// call rifle function
 	Rifle->MaxAmmo();
+}
+
+FGenericTeamId ABasePlayer::GetGenericTeamId() const
+{
+	return FGenericTeamId(TeamID);
 }
