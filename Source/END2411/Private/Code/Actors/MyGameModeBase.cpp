@@ -4,6 +4,7 @@
 #include "Code/Actors/MyGameModeBase.h"
 #include "Code/Actors/BaseCharacter.h"
 #include "Code/Actors/BasePlayer.h"
+#include "Code/Actors/Spawner.h"
 #include "WBP_CodeResultsWidget.h" 
 #include "Blueprint/UserWidget.h"
 #include "EngineUtils.h"
@@ -27,6 +28,15 @@ void AMyGameModeBase::BeginPlay()
 			
 		}
 	}
+	for (TActorIterator<ASpawner> It(GetWorld()); It; ++It) {
+		ASpawner* Spawner = *It;
+		if (Spawner) {
+			AddEnemy(Spawner);
+			Spawner->OnSpawn.AddDynamic(this, &AMyGameModeBase::AddEnemy);
+		}
+	}
+
+
 	UE_LOG(LogTemp, Warning, TEXT("Number of Enemies: %d"), NumOfEnemies);
 
 	if (ResultsWidgetsClass)

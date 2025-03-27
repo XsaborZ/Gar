@@ -6,9 +6,9 @@
 #include "GameFramework/GameModeBase.h"
 #include "MyGameModeBase.generated.h"
 
-/**
- * 
- */
+
+
+
 UCLASS()
 class END2411_API AMyGameModeBase : public AGameModeBase
 {

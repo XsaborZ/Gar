@@ -8,6 +8,7 @@
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Blueprint/SlateBlueprintLibrary.h"
 #include "Components/TextBlock.h"
+#include "Code/Actors/Spawner.h"
 #include "GameFramework/PlayerController.h"
 
 #include "../END2411.h"
@@ -59,7 +60,8 @@ void UPlayerHud::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 		{
 			EndPointCode = HitResult.Location;
 			APawn* HitPawn = Cast<APawn>(HitResult.GetActor());
-			if (HitPawn)
+			ASpawner* HitSpawner = Cast<ASpawner>(HitResult.GetActor());
+			if (HitPawn || HitSpawner)
 			{
 				DynamicMaterial->SetVectorParameterValue(ColorName, DangerColor);
 			}

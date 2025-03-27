@@ -110,7 +110,7 @@ void ACodeRifle::MaxAmmo()
 {
 	//OriginalMaxAmmo = maxAmmo;
 	maxAmmo++;
-	ReloadAmmo();
+	//ReloadAmmo();
 	OnAmmoChanged.Broadcast(currentAmmo, maxAmmo);
 	//FTimerHandle MaxAmmoTimerHandle;
 	//GetWorld()->GetTimerManager().SetTimer(MaxAmmoTimerHandle, this, &ACodeRifle::ResetAmmo, 10, false);
